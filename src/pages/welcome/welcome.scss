@@ -1,0 +1,21 @@
+@use "../../App.scss";
+
+.welcome {
+  margin: 1em;
+}
+
+.logo {
+  width: 90px;
+  height: 40px;
+}
+
+.welcome-heading {
+  color: App.$primary-color;
+  font-family: App.$secondary-fontBold;
+}
+
+.signIn-image {
+  display: block;
+  width: 100%;
+  margin: 1em 0;
+}

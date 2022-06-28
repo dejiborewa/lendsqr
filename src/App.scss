@@ -1,0 +1,32 @@
+@font-face {
+  font-family: "Avenir Next Regular";
+  src: url("./assets/avenir-next/AvenirNextLTPro-Regular.otf");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Avenir Next Ital";
+  src: url("./assets/avenir-next/AvenirNextLTPro-It.otf");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Avenir Next Bold";
+  src: url("./assets/avenir-next/AvenirNextLTPro-Bold.otf");
+  font-weight: 700;
+  font-style: bold;
+  font-display: swap;
+}
+
+$secondary-fontReg: "Avenir Next Regular";
+$secondary-fontItal: "Avenir Next Ital";
+$secondary-fontBold: "Avenir Next Bold";
+$primary-color: "#213F7D";
+
+body {
+  margin: 0;
+}
