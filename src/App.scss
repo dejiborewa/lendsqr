@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 @font-face {
   font-family: "Avenir Next Regular";
   src: url("./assets/avenir-next/AvenirNextLTPro-Regular.otf");
@@ -25,8 +29,21 @@
 $secondary-fontReg: "Avenir Next Regular";
 $secondary-fontItal: "Avenir Next Ital";
 $secondary-fontBold: "Avenir Next Bold";
-$primary-color: "#213F7D";
+$primary-color: #213f7d;
+$secondary-color: #545f7d;
+$button-color: #39cdcc;
 
 body {
   margin: 0;
+}
+
+.logo {
+  width: 90px;
+  height: 40px;
+  display: inline-block;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
 }

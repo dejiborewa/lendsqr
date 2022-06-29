@@ -1,0 +1,89 @@
+@use "../../App.scss";
+
+.navbar-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0.8em;
+
+  div {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.navbar-btn {
+  background-color: App.$button-color;
+  outline: none;
+  border: none;
+}
+
+.navbar-search {
+  display: flex;
+  align-items: center;
+}
+
+.avatar {
+  border-radius: 50%;
+  width: 30px;
+  margin-right: 5px;
+}
+
+.menuMobile {
+  position: absolute;
+  padding: 1em;
+  color: App.$secondary-color;
+  top: 0;
+  background-color: rgba(255, 255, 255, 0.3);
+  width: 75vw;
+  height: 100vh;
+  overflow-y: scroll;
+  z-index: 3;
+  box-shadow: 0 2px 7px 1px #ccc;
+  animation: menuMobile 0.5s ease-in-out;
+  font-family: "Work Sans", sans-serif;
+  backdrop-filter: blur(13px);
+  -webkit-backdrop-filter: blur(13px);
+
+  div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+@keyframes menuMobile {
+  from {
+    left: -100%;
+  }
+
+  to {
+    left: 0;
+  }
+}
+
+%list-nav-style {
+  display: flex;
+  align-items: center;
+
+  span {
+    margin-right: 0.5em;
+  }
+}
+
+.switch {
+  @extend %list-nav-style;
+  margin-bottom: 2em;
+}
+
+.list-nav {
+  @extend %list-nav-style;
+  margin: 1.2em 0;
+}
+
+.customers {
+  color: #545f7d;
+  font-size: 12px;
+  font-weight: 500;
+  margin: 1.2em 0;
+}

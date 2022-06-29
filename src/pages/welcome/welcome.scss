@@ -1,21 +1,137 @@
 @use "../../App.scss";
 
-.welcome {
-  margin: 1em;
+section {
+  font-family: App.$secondary-fontReg;
 }
 
-.logo {
-  width: 90px;
-  height: 40px;
+.welcome {
+  margin: 1em;
+
+  @media only screen and (min-width: 768px) {
+    margin: 2em;
+  }
+
+  @media only screen and (min-width: 1024px) {
+    margin: 4em;
+  }
+
+  .welcome-main {
+    @media only screen and (min-width: 1024px) {
+      display: flex;
+      align-items: center;
+      margin-top: 5em;
+    }
+  }
 }
+
+
 
 .welcome-heading {
   color: App.$primary-color;
   font-family: App.$secondary-fontBold;
+  margin-bottom: 5px;
+}
+
+.welcome-text {
+  color: App.$secondary-color;
+  margin-top: 0;
 }
 
 .signIn-image {
   display: block;
   width: 100%;
-  margin: 1em 0;
+  margin: 3em 0;
+
+  @media only screen and (min-width: 1024px) {
+    width: 50%;
+    margin: 0;
+  }
+}
+
+.welcome-form {
+  width: 93%;
+  margin: 1em auto 0;
+
+  @media only screen and (min-width: 768px) {
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  @media only screen and (min-width: 1024px) {
+    width: 70%;
+    margin: 0 auto;
+  }
+}
+
+.welcome-form-container {
+  @media only screen and (min-width: 1024px) {
+    width: 50%;
+  }
+}
+
+.form-inputs {
+  margin-top: 2em;
+
+  div {
+    width: 100%;
+    background-color: white;
+    border: 2px solid rgba(84, 95, 125, 0.15);
+    border-radius: 5px;
+    padding: 0.6em 0.5em;
+    margin-bottom: 1em;
+  }
+
+  input {
+    outline: none;
+    border: none;
+    width: 100%;
+  }
+
+  input::placeholder {
+    color: App.$secondary-color;
+  }
+
+  .password-container {
+    display: flex;
+    align-items: center;
+
+    p {
+      font-size: 12px;
+      margin: 0;
+      color: App.$button-color;
+      font-weight: 600;
+      cursor: pointer;
+    }
+  }
+
+  .password-container:focus-within {
+    border-color: App.$button-color;
+  }
+}
+
+.forgot-password {
+  color: App.$button-color;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.forgot-password:hover {
+  color: (App.$button-color, 3%);
+}
+
+.login {
+  width: 100%;
+  background-color: App.$button-color;
+  color: white;
+  border: none;
+  padding: 1em 0.5em;
+  border-radius: 8px;
+  margin-top: 1em;
+  cursor: pointer;
+}
+
+.login:hover {
+  background-color: (App.$button-color, 3%);
 }
