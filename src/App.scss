@@ -46,4 +46,40 @@ body {
 ul {
   list-style-type: none;
   padding: 0;
+  margin: 0;
+}
+
+.sidebar-top {
+  margin: 1.2em 0;
+}
+
+%list-nav-style {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+
+  span {
+    margin-right: 0.5em;
+  }
+}
+
+.list-nav {
+  @extend %list-nav-style;
+  padding: 0.8em;
+  margin-left: -0.5em;
+  margin-right: -0.5em;
+
+  @media only screen and (min-width: 1024px) {
+    width: auto;
+    margin-left: -2em;
+    margin-right: -2em;
+    padding: 0.8em 2em;
+  }
+}
+
+.list-heading {
+  color: #545f7d;
+  font-size: 12px;
+  font-weight: 500;
+  margin: 1em;
 }

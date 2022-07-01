@@ -1,10 +1,11 @@
+import { useState } from "react";
 import { logo } from "../../assets/svg/logo";
 import { search } from "../../assets/svg/search";
 import avi from "../../assets/images/avi.png";
 import "./navbar.scss";
 import { arrowDown } from "../../assets/svg/arrowDown";
-import MenuMobile from "./menuMobile";
-import { useState } from "react";
+import MenuMobile from "../menuMobile/menuMobile";
+import { bell } from "../../assets/svg/bell2";
 
 export default function Navbar() {
   const [openMenuMobile, setOpenMenuMobile] = useState(false);
@@ -14,10 +15,7 @@ export default function Navbar() {
       <nav className="navbar-main">
         <div>
           <svg
-            style={{
-              width: "1.7em",
-              marginRight: "5px",
-            }}
+            className="menuIconMobile"
             fill="none"
             stroke="#213F7D"
             viewBox="0 0 24 24"
@@ -34,12 +32,16 @@ export default function Navbar() {
           <span className="logo">{logo}</span>
         </div>
 
+        <div id="navbar-search">
+          <div>
+            <input type="text" placeholder="Search for anything" />
+          </div>
+          <button className="navbar-btn">{search}</button>
+        </div>
+
         <div>
           <svg
-            style={{
-              width: "1.5em",
-              marginRight: "1em",
-            }}
+            className="search-icon"
             fill="none"
             stroke="#213F7D"
             viewBox="0 0 24 24"
@@ -52,19 +54,15 @@ export default function Navbar() {
               d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
             ></path>
           </svg>
-          {false && (
-            <div className="navbar-search">
-              <input type="text" placeholder="Search for anything" />
-              <button className="navbar-btn">{search}</button>
-            </div>
-          )}
-
+          <span className="nav-docs">Docs</span>
+          <span className="nav-bell">{bell}</span>
           <img src={avi} alt="avatar" className="avatar" />
-          <span>{arrowDown}</span>
+          <p className="nav-name">Adedeji</p>
+          <span className="nav-arrowDown">{arrowDown}</span>
         </div>
       </nav>
 
-      {openMenuMobile && <MenuMobile setOpenMenuMobile={setOpenMenuMobile}/>}
+      {openMenuMobile && <MenuMobile setOpenMenuMobile={setOpenMenuMobile} />}
     </>
   );
 }

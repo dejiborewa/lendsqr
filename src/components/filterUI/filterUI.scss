@@ -1,0 +1,65 @@
+@use "../../App.scss";
+
+.filterUI {
+  display: none;
+  position: absolute;
+  left: -600%;
+  top: 200%;
+  background-color: white;
+  border: 1px solid rgba(84, 95, 125, 0.14);
+  box-shadow: 3px 5px 20px rgba(0, 0, 0, 0.04);
+  border-radius: 4px;
+  z-index: 4;
+  width: 200px;
+  padding: 0 1em;
+
+  @media only screen and (min-width: 1024px) {
+    width: 250px;
+  }
+
+  .filterInput-container {
+    padding: 0.5em 0;
+  }
+
+  p {
+    margin: 8px 0;
+    text-align: start;
+  }
+
+  .filter-input {
+    width: 100%;
+    padding: 0.5em;
+    border: 1px solid rgba(33, 63, 125, 0.2);
+    border-radius: 8px;
+  }
+
+  .status-dropdown {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.btn {
+  display: flex;
+  justify-content: space-between;
+
+  & > button {
+    width: 48%;
+    margin: 1em 0;
+    padding: 0.7em 0.5em;
+    font-weight: 600;
+    border-radius: 8px;
+  }
+
+  .reset-btn {
+    border: 1px solid #545f7d;
+    color: App.$secondary-color;
+  }
+
+  .filter-btn {
+    border: 1px solid #39cdcc;
+    background-color: #39cdcc;
+    color: #fff;
+  }
+}

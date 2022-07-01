@@ -75,6 +75,9 @@ export const sidebar = {
       icon: services,
       text: "Services",
     },
+  ],
+
+  settings: [
     {
       icon: servicesAcct,
       text: "Service Account",

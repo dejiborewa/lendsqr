@@ -1,0 +1,23 @@
+@use "../../App.scss";
+
+.menuDesktop {
+  display: none;
+
+  @media only screen and (min-width: 1024px) {
+    display: block;
+    width: 20%;
+    padding: 1em 2em;
+    color: App.$secondary-color;
+    box-shadow: 5px 5px 4px 5px rgb(222, 222, 222);
+    background-color: rgba(255, 255, 255, 0.3);
+    font-family: "Work Sans", sans-serif;
+  }
+}
+
+.activeNavLink {
+  background: linear-gradient(
+    to right,
+    rgba(57, 205, 204, 1) 2%,
+    rgba(57, 205, 204, 0.06) 2% 100%
+  );
+}

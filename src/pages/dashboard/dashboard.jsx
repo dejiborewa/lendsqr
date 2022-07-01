@@ -1,10 +1,10 @@
-import Navbar from "../../components/navbar/navbar";
-import "./dashboard.scss";
+import Layout from "../../components/layout/layout";
+import DashboardMain from "../../components/dashboardMain/dashboardMain";
 
 export default function Dashboard() {
   return (
-    <section className="dashboard">
-      <Navbar />
-    </section>
+    <Layout>
+      <DashboardMain />
+    </Layout>
   );
 }

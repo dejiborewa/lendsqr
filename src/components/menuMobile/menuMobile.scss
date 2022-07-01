@@ -1,0 +1,40 @@
+@use "../../App.scss";
+
+.menuMobile {
+  position: absolute;
+  padding: 1em 0.5em;
+  color: App.$secondary-color;
+  top: 0;
+  background-color: rgba(255, 255, 255, 0.3);
+  width: 70vw;
+  height: 100vh;
+  overflow-y: scroll;
+  z-index: 3;
+  box-shadow: 0 2px 7px 1px #ccc;
+
+  animation: menuMobile 0.5s ease-in-out;
+  font-family: "Work Sans", sans-serif;
+  backdrop-filter: blur(13px);
+  -webkit-backdrop-filter: blur(13px);
+
+  div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  @media only screen and (min-width: 1024px) {
+    display: none;
+  }
+}
+
+@keyframes menuMobile {
+  from {
+    left: -100%;
+  }
+
+  to {
+    left: 0;
+  }
+}
+

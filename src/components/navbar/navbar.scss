@@ -1,14 +1,57 @@
 @use "../../App.scss";
 
+%displayState {
+  display: none;
+
+  @media only screen and (min-width: 1024px) {
+    display: block;
+    cursor: pointer;
+  }
+}
+
 .navbar-main {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin: 0.8em;
+  font-family: "Work Sans", sans-serif;
 
-  div {
+  & > div {
     display: flex;
     align-items: center;
+  }
+
+  @media only screen and (min-width: 1024px) {
+    margin: 1em 2em;
+  }
+}
+
+#navbar-search {
+  display: none;
+
+  @media only screen and (min-width: 1024px) {
+    display: flex;
+    align-items: center;
+    width: 40%;
+
+    input {
+      border: none;
+      outline: none;
+      margin: 0.7em 1em;
+      width: 100%;
+    }
+
+    input::placeholder {
+      font-family: inherit;
+    }
+
+    div {
+      border: 1px solid rgba(33, 63, 125, 0.2);
+      border-top-left-radius: 8px;
+      border-bottom-left-radius: 8px;
+      border-right: 0px;
+      width: 80%;
+    }
   }
 }
 
@@ -16,11 +59,53 @@
   background-color: App.$button-color;
   outline: none;
   border: none;
+  padding: 0.75em 1.2em;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
 }
 
-.navbar-search {
-  display: flex;
-  align-items: center;
+.search-icon {
+  width: 1.5em;
+  margin-right: 1em;
+
+  @media only screen and (min-width: 1024px) {
+    display: none;
+  }
+}
+
+.nav-name {
+  @extend %displayState;
+
+  @media only screen and (min-width: 1024px) {
+    margin: 0 0 0 1em;
+  }
+}
+
+.nav-bell {
+  @extend %displayState;
+
+  @media only screen and (min-width: 1024px) {
+    margin: 0 1.5em;
+  }
+}
+
+.nav-docs {
+  @extend %displayState;
+
+  @media only screen and (min-width: 1024px) {
+    margin-right: 1em;
+    text-decoration: underline;
+    color: App.$primary-color;
+  }
+}
+
+.nav-arrowDown {
+  margin-left: 8px;
+  margin-bottom: 4px;
+
+  @media only screen and (min-width: 1024px) {
+    margin-left: 1em;
+  }
 }
 
 .avatar {
@@ -29,61 +114,11 @@
   margin-right: 5px;
 }
 
-.menuMobile {
-  position: absolute;
-  padding: 1em;
-  color: App.$secondary-color;
-  top: 0;
-  background-color: rgba(255, 255, 255, 0.3);
-  width: 75vw;
-  height: 100vh;
-  overflow-y: scroll;
-  z-index: 3;
-  box-shadow: 0 2px 7px 1px #ccc;
-  animation: menuMobile 0.5s ease-in-out;
-  font-family: "Work Sans", sans-serif;
-  backdrop-filter: blur(13px);
-  -webkit-backdrop-filter: blur(13px);
+.menuIconMobile {
+  width: 1.7em;
+  margin-right: 5px;
 
-  div {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  @media only screen and (min-width: 1024px) {
+    display: none;
   }
-}
-
-@keyframes menuMobile {
-  from {
-    left: -100%;
-  }
-
-  to {
-    left: 0;
-  }
-}
-
-%list-nav-style {
-  display: flex;
-  align-items: center;
-
-  span {
-    margin-right: 0.5em;
-  }
-}
-
-.switch {
-  @extend %list-nav-style;
-  margin-bottom: 2em;
-}
-
-.list-nav {
-  @extend %list-nav-style;
-  margin: 1.2em 0;
-}
-
-.customers {
-  color: #545f7d;
-  font-size: 12px;
-  font-weight: 500;
-  margin: 1.2em 0;
 }

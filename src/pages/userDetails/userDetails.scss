@@ -1,0 +1,352 @@
+@use "../../App.scss";
+
+.userDetails-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#user-btn1 {
+  display: none;
+
+  @media only screen and (min-width: 768px) {
+    display: block;
+  }
+}
+
+#user-btn2 {
+  display: block;
+  margin: 1em 0;
+
+  @media only screen and (min-width: 768px) {
+    display: none;
+  }
+}
+
+.user-card {
+  background-color: #ffffff;
+  padding: 0.8em 0.8em 0;
+  border: 1px solid rgba(33, 63, 125, 0.06);
+  box-shadow: 3px 5px 20px rgba(0, 0, 0, 0.04);
+  border-radius: 4px;
+  margin-top: 2em;
+
+  @media only screen and (min-width: 1024px) {
+    padding: 2em 2em 0;
+  }
+
+  .user-card-info {
+    display: flex;
+    align-items: center;
+
+    h3 {
+      margin: 0 0 3px 0;
+      font-size: 16px;
+      color: App.$primary-color;
+      font-weight: 500;
+
+      @media only screen and (min-width: 1024px) {
+        font-size: 22px;
+      }
+    }
+
+    .user-card-id {
+      font-size: 14px;
+      color: App.$secondary-color;
+      font-weight: 400;
+    }
+
+    .user-card-name {
+      margin-left: 1em;
+    }
+
+    .user-card-tier {
+      margin-left: 1em;
+      border-right: 1px solid rgba(84, 95, 125, 0.2);
+      border-left: 1px solid rgba(84, 95, 125, 0.2);
+      padding: 0 0.8em;
+
+      @media only screen and (min-width: 1024px) {
+        margin-left: 2em;
+        padding: 0 1.5em;
+      }
+
+      .user-card-stars {
+        margin-top: 3px;
+      }
+
+      span {
+        font-weight: 500;
+        font-size: 14px;
+        color: App.$secondary-color;
+      }
+    }
+  }
+
+  #user-acct1 {
+    display: none;
+
+    @media only screen and (min-width: 768px) {
+      display: block;
+      margin-left: 2em;
+
+      h3 {
+        margin: 0 0 3px 0;
+        font-size: 16px;
+        color: App.$primary-color;
+        font-weight: 500;
+
+        @media only screen and (min-width: 1024px) {
+          font-size: 22px;
+        }
+      }
+
+      span {
+        font-weight: 400;
+        font-size: 12px;
+        color: App.$primary-color;
+      }
+    }
+  }
+
+  #user-acct2 {
+    margin: 1em 0;
+
+    h3 {
+      margin: 0;
+      font-size: 16px;
+      color: App.$primary-color;
+      font-weight: 500;
+    }
+
+    span {
+      font-weight: 400;
+      font-size: 12px;
+      color: App.$primary-color;
+    }
+
+    @media only screen and (min-width: 768px) {
+      display: none;
+    }
+  }
+
+  .userDetails-menu {
+    display: flex;
+    width: 100%;
+    margin: 1.5em 0 0 0;
+    overflow-x: auto;
+
+    @media only screen and (min-width: 1024px) {
+      overflow-x: unset;
+      justify-content: space-between;
+      margin: 3em 0 0 0;
+    }
+
+    li {
+      min-width: 45%;
+      padding-bottom: 5px;
+      text-align: center;
+      cursor: pointer;
+
+      @media only screen and (min-width: 1024px) {
+        min-width: unset;
+        padding-left: 1.5em;
+        padding-right: 1.5em;
+      }
+    }
+
+    .activeTab {
+      color: #39cdcc;
+      border-bottom: 2px solid #39cdcc;
+    }
+  }
+}
+
+.userDetails-heading {
+  color: App.$primary-color;
+  font-weight: 500;
+  margin: 0;
+}
+
+%user-btn {
+  border-radius: 8px;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+  font-family: "Work Sans", sans-serif;
+  padding: 0.5em 1em;
+}
+
+.user-blacklist {
+  @extend %user-btn;
+  color: rgba(228, 3, 59, 1);
+  border: 1px solid #e4033b;
+}
+
+.user-active {
+  @extend %user-btn;
+  border: 1px solid #39cdcc;
+  color: #39cdcc;
+  margin-left: 1em;
+}
+
+.profile-container {
+  position: relative;
+  width: 4em;
+  height: 4em;
+  border-radius: 50%;
+  background: rgba(33, 63, 125, 0.16);
+
+  span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  @media only screen and (min-width: 1024px) {
+    width: 5em;
+    height: 5em;
+  }
+}
+
+.userDetails-table-container {
+  padding: 0 1em;
+  border: 1px solid rgba(33, 63, 125, 0.06);
+  box-shadow: 3px 5px 20px rgba(0, 0, 0, 0.04);
+  background-color: #ffffff;
+  border-radius: 4px;
+
+  @media only screen and (min-width: 1024px) {
+    padding: 1em 2em;
+  }
+
+  margin-top: 2em;
+
+  h4 {
+    color: App.$primary-color;
+    margin: 1em 0;
+  }
+
+  %gridTable {
+    .userDetails-table-heading {
+      font-size: 12px;
+      color: App.$secondary-color;
+      font-weight: 400;
+      margin-bottom: 0;
+
+      @media only screen and (min-width: 1024px) {
+        margin-bottom: initial;
+      }
+    }
+
+    .userDetails-table-data {
+      margin-top: 0;
+      font-weight: 500;
+      font-size: 16px;
+      color: App.$secondary-color;
+
+      @media only screen and (min-width: 1024px) {
+        margin-top: initial;
+      }
+    }
+  }
+
+  .userDetails-table {
+    @extend %gridTable;
+
+    @media only screen and (min-width: 1024px) {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+    }
+  }
+
+  .userDetails-table2 {
+    @extend %gridTable;
+
+    @media only screen and (min-width: 1024px) {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .userDetails-table3 {
+    @extend %gridTable;
+
+    @media only screen and (min-width: 1024px) {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .userDetails-table4 {
+    @extend %gridTable;
+
+    @media only screen and (min-width: 1024px) {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .userDetails-border {
+    padding-bottom: 1em;
+    border-bottom: 1px solid rgba(33, 63, 125, 0.1);
+
+    &:nth-child(4) {
+      border-bottom: unset;
+    }
+  }
+}
+
+// .userDetails-table {
+//   background: white;
+//   padding: 1em;
+//   margin-top: 2em;
+//   border: 1px solid rgba(33, 63, 125, 0.06);
+//   box-shadow: 3px 5px 20px rgba(0, 0, 0, 0.04);
+//   border-radius: 4px;
+//   width: 100%;
+//   overflow-x: auto;
+
+//   h4 {
+//     margin: 0 0 1em 0;
+//     color: App.$primary-color;
+//     font-size: 16px;
+//   }
+
+//   %flex-schema {
+//     display: flex;
+//     color: App.$secondary-color;
+//     gap: 1em;
+
+//     @media only screen and (min-width: 1024px) {
+//       overflow-x: unset;
+//     }
+//   }
+
+//   .userDetails-table-header {
+//     @extend %flex-schema;
+//     font-size: 12px;
+
+//     div {
+//       padding-bottom: 8px;
+//       min-width: 40%;
+//       text-align: center;
+//       margin: 0;
+//     }
+//   }
+
+//   .userDetails-table-body {
+//     @extend %flex-schema;
+
+//     p {
+//       min-width: 40%;
+//       text-align: center;
+//       margin: 0;
+//       font-weight: 500;
+//     }
+//   }
+
+//   .userDetails-row2 {
+//     margin-top: 1em;
+//   }
+// }
