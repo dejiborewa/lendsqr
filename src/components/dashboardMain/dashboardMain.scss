@@ -86,6 +86,7 @@ table {
 
   @media only screen and (min-width: 1024px) {
     margin-top: 3em;
+    overflow-x: unset;
   }
 
   th {
@@ -140,6 +141,7 @@ tbody {
     align-items: center;
     justify-content: center;
     width: 150px;
+    cursor: pointer;
 
     @media only screen and (min-width: 1024px) {
       width: 100%;

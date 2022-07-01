@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "./dashboardMain.scss";
 import { totalUsers } from "../../data/totalUsers";
 import { table } from "../../data/table";
@@ -6,10 +7,17 @@ import { tableBtn } from "../../assets/svg/table-button";
 import { threeDots } from "../../assets/svg/threeDots";
 import FilterUI from "../filterUI/filterUI";
 import StatusMenu from "../statusMenu/statusMenu";
+import FormatDate from "../../utils/formatDate";
+
+// import Loader from "../loader/loader";
 
 export default function DashboardMain() {
+  const [tableData, setTableData] = useState([]);
+  // const [loading, setLoading] = useState(false);
   const [filterUIIndex, setFilterUIIndex] = useState(null); // tracks the current filterUI that is open
   const [statusMenuIndex, setStatusMenuIndex] = useState(null); // tracks the current statusMenu that is open
+
+  const navigate = useNavigate();
 
   const openFilterUI = (e, element) => {
     if (filterUIIndex !== null) {
@@ -37,13 +45,13 @@ export default function DashboardMain() {
       elements.forEach((element) => {
         element.style.display = "none";
       });
-
-      if (e.currentTarget.id === element) {
-        // open unique statusMenu component based on the users click
-        const index = element[element.length - 1]; // get the last character of the string; the unique index
-        document.getElementById(`statusMenu-${index}`).style.display = "block";
-        setStatusMenuIndex(index);
-      }
+    }
+    if (e.currentTarget.id === element) {
+      console.log("true");
+      // open unique statusMenu component based on the users click
+      const index = element[element.length - 1]; // get the last character of the string; the unique index
+      document.getElementById(`statusMenu-${index}`).style.display = "block";
+      setStatusMenuIndex(index);
     }
   };
 
@@ -70,7 +78,7 @@ export default function DashboardMain() {
           .contains(e.target)
       ) {
         document.getElementById(
-          `statusMenuIcon-${statusMenuIndex}`
+          `statusMenu-${statusMenuIndex}`
         ).style.display = "none";
       }
     };
@@ -84,103 +92,159 @@ export default function DashboardMain() {
     };
   });
 
+  useEffect(() => {
+    let data = JSON.parse(localStorage.getItem("tableData"));
+
+    if (data) {
+      setTableData(data);
+    } else {
+      const fetchData = async () => {
+        try {
+          const data = await fetch(
+            "https://6270020422c706a0ae70b72c.mockapi.io/lendsqr/api/v1/users"
+          );
+
+          const response = await data.json();
+          setTableData(response);
+
+          localStorage.setItem("tableData", JSON.stringify(response));
+        } catch (err) {
+          console.log(err);
+        }
+      };
+
+      fetchData();
+    }
+  }, []);
+
   return (
-    <div className="dashboard-main">
-      <h3 className="dashboard-heading">Users</h3>
-      <div className="user-data-container">
-        {totalUsers.map((user, index) => (
-          <div key={index} className="user-data">
-            <div
-              style={{
-                background: user.background,
-              }}
-              className="icon-bg"
-            >
-              <span className="icon-dash">{user.icon}</span>
+    <>
+      <div className="dashboard-main">
+        <h3 className="dashboard-heading">Users</h3>
+        <div className="user-data-container">
+          {totalUsers.map((user, index) => (
+            <div key={index} className="user-data">
+              <div
+                style={{
+                  background: user.background,
+                }}
+                className="icon-bg"
+              >
+                <span className="icon-dash">{user.icon}</span>
+              </div>
+
+              <p className="user-field">{user.field}</p>
+              <span className="user-numbers">
+                {user.numbers.toLocaleString()}
+              </span>
             </div>
+          ))}
+        </div>
 
-            <p className="user-field">{user.field}</p>
-            <span className="user-numbers">
-              {user.numbers.toLocaleString()}
-            </span>
-          </div>
-        ))}
-      </div>
-
-      <div>
-        <table>
-          <thead>
-            <tr className="headerRow">
-              {table.headers.map((item, index) => (
-                <th
-                  key={index}
-                  className={`headerData ${
-                    [
-                      "ORGANIZATION",
-                      "EMAIL",
-                      "USERNAME",
-                      "PHONE NUMBER",
-                      "DATE JOINED",
-                    ].includes(item) && `longCol`
-                  }
+        <div>
+          <table>
+            <thead>
+              <tr className="headerRow">
+                {table.headers.map((item, index) => (
+                  <th
+                    key={index}
+                    className={`headerData ${
+                      [
+                        "ORGANIZATION",
+                        "EMAIL",
+                        "USERNAME",
+                        "PHONE NUMBER",
+                        "DATE JOINED",
+                      ].includes(item) && `longCol`
+                    }
                   `}
-                >
-                  <span>{item}</span>
-                  {item !== "" && (
-                    <span
-                      style={{
-                        marginLeft: "5px",
-                        cursor: "pointer",
-                        position: "relative",
-                      }}
-                      id={`filterIcon-${index}`}
-                      onClick={(e) => openFilterUI(e, `filterIcon-${index}`)}
-                    >
-                      {tableBtn}
-                      <FilterUI id={index} />
-                    </span>
-                  )}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {table.body.map((item, index) => (
-              <tr key={index} className="bodyRow">
-                <td className="longCol bodyData">{item.organization}</td>
-                <td className="longCol bodyData">{item.username}</td>
-                <td className="longCol bodyData">{item.email}</td>
-                <td className="longCol bodyData">{item.phone}</td>
-                <td className="longCol bodyData">{item.date}</td>
-                <td className="bodyData status">
-                  <span
-                    className={
-                      (item.status === "Inactive" && `inactive-status`) ||
-                      (item.status === "Active" && `active-status`) ||
-                      (item.status === "Pending" && `pending-status`) ||
-                      (item.status === "Blacklisted" && `blacklisted-status`)
-                    }
                   >
-                    {item.status}
-                  </span>
-                </td>
-                <td className="bodyData">
-                  <span
-                    style={{ cursor: "pointer", position: "relative" }}
-                    id={`statusMenuIcon-${index}`}
-                    onClick={(e) =>
-                      openStatusMenu(e, `statusMenuIcon-${index}`)
-                    }
-                  >
-                    {threeDots}
-                    <StatusMenu id={index} />
-                  </span>
-                </td>
+                    <span>{item}</span>
+                    {item !== "" && (
+                      <span
+                        style={{
+                          marginLeft: "5px",
+                          cursor: "pointer",
+                          position: "relative",
+                        }}
+                        id={`filterIcon-${index}`}
+                        onClick={(e) => openFilterUI(e, `filterIcon-${index}`)}
+                      >
+                        {tableBtn}
+                        <FilterUI id={index} />
+                      </span>
+                    )}
+                  </th>
+                ))}
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {tableData.map((item, index) => (
+                <tr key={index} className="bodyRow">
+                  <td
+                    className="longCol bodyData"
+                    onClick={() => navigate(`/user-details/${index}`)}
+                  >
+                    {item?.orgName}
+                  </td>
+                  <td
+                    className="longCol bodyData"
+                    onClick={() => navigate(`/user-details/${index}`)}
+                  >
+                    {item?.userName}
+                  </td>
+                  <td
+                    className="longCol bodyData"
+                    onClick={() => navigate(`/user-details/${index}`)}
+                  >
+                    {item?.email}
+                  </td>
+                  <td
+                    className="longCol bodyData"
+                    onClick={() => navigate(`/user-details/${index}`)}
+                  >
+                    {item?.phoneNumber}
+                  </td>
+                  <td
+                    className="longCol bodyData"
+                    onClick={() => navigate(`/user-details/${index}`)}
+                  >
+                    {FormatDate(item.createdAt)}
+                  </td>
+                  <td
+                    className="bodyData status"
+                    onClick={() => navigate(`/user-details/${index}`)}
+                  >
+                    <span
+                      className={
+                        (item?.education?.employmentStatus === "Employed" &&
+                          `active-status`) ||
+                        (item?.education?.employmentStatus === "Unemployed" &&
+                          `blacklisted-status`)
+                      }
+                    >
+                      {item?.education?.employmentStatus}
+                    </span>
+                  </td>
+                  <td className="bodyData">
+                    <span
+                      style={{ cursor: "pointer", position: "relative" }}
+                      id={`statusMenuIcon-${index}`}
+                      onClick={(e) =>
+                        openStatusMenu(e, `statusMenuIcon-${index}`)
+                      }
+                    >
+                      <span></span>
+                      {threeDots}
+                      <StatusMenu id={index} />
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
-    </div>
+    </>
   );
 }

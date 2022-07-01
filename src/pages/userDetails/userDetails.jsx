@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./userDetails.scss";
 import { useNavigate } from "react-router-dom";
 import Layout from "../../components/layout/layout";
@@ -7,17 +7,40 @@ import { profile } from "../../assets/svg/profile";
 import { filledStar } from "../../assets/svg/filled-star";
 import { unFilledStar } from "../../assets/svg/unfilled-star";
 import { userDetailsMenu } from "../../data/userDetailsMenu";
+import { useParams } from "react-router-dom";
 
 export default function UserDetails() {
+  const [userData, setUserData] = useState([]);
   const [activeTab, setActiveTab] = useState(0);
 
+  const { id } = useParams();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await fetch(
+          `https://6270020422c706a0ae70b72c.mockapi.io/lendsqr/api/v1/users/${id}`
+        );
+
+        const response = await data.json();
+        setUserData(response);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    fetchData();
+  }, [id]);
 
   return (
     <Layout>
       <div className="dashboard-main">
         <div>
-          <p onClick={() => navigate("/dashboard")}>
+          <p
+            onClick={() => navigate("/dashboard")}
+            style={{ cursor: "pointer" }}
+          >
             {backArrow}
             <span style={{ marginLeft: "0.5em" }}>Back to User</span>
           </p>
@@ -42,8 +65,10 @@ export default function UserDetails() {
               </div>
 
               <div className="user-card-name">
-                <h3>Grace Effiom</h3>
-                <span className="user-card-id">LSQFf587g90</span>
+                <h3>
+                  {userData?.profile?.firstName} {userData?.profile?.lastName}
+                </h3>
+                <span className="user-card-id">{userData?.accountNumber}</span>
               </div>
 
               <div className="user-card-tier">
@@ -56,13 +81,13 @@ export default function UserDetails() {
               </div>
 
               <div id="user-acct1">
-                <h3>₦200,000.00</h3>
+                <h3>₦{userData.accountBalance}</h3>
                 <span>9912345678/Providus Bank</span>
               </div>
             </div>
 
             <div id="user-acct2">
-              <h3>₦200,000.00</h3>
+              <h3>₦{userData.accountBalance}</h3>
               <span>9912345678/Providus Bank</span>
             </div>
 
@@ -85,23 +110,31 @@ export default function UserDetails() {
               <div className="userDetails-table">
                 <div>
                   <h4 className="userDetails-table-heading">FULL NAME</h4>
-                  <p className="userDetails-table-data">Grace Effiom</p>
+                  <p className="userDetails-table-data">
+                    {userData?.profile?.firstName} {userData?.profile?.lastName}
+                  </p>
                 </div>
                 <div>
                   <h4 className="userDetails-table-heading">PHONE NUMBER</h4>
-                  <p className="userDetails-table-data">07011223344</p>
+                  <p className="userDetails-table-data">
+                    {userData?.profile?.phoneNumber}
+                  </p>
                 </div>
                 <div>
                   <h4 className="userDetails-table-heading">EMAIL ADDRESS</h4>
-                  <p className="userDetails-table-data">grace@gmail.com</p>
+                  <p className="userDetails-table-data">{userData?.email}</p>
                 </div>
                 <div>
                   <h4 className="userDetails-table-heading">BVN</h4>
-                  <p className="userDetails-table-data">07060780922</p>
+                  <p className="userDetails-table-data">
+                    {userData?.profile?.bvn}
+                  </p>
                 </div>
                 <div>
                   <h4 className="userDetails-table-heading">GENDER</h4>
-                  <p className="userDetails-table-data">Female</p>
+                  <p className="userDetails-table-data">
+                    {userData?.profile?.gender}
+                  </p>
                 </div>
                 <div>
                   <h4 className="userDetails-table-heading">MARITAL STATUS</h4>
@@ -127,39 +160,57 @@ export default function UserDetails() {
                   <h4 className="userDetails-table-heading">
                     LEVEL OF EDUCATION
                   </h4>
-                  <p className="userDetails-table-data">B.Sc</p>
+                  <p className="userDetails-table-data">
+                    {userData?.education?.level}
+                  </p>
                 </div>
                 <div>
                   <h4 className="userDetails-table-heading">
                     EMPLOYMENT STATUS
                   </h4>
-                  <p className="userDetails-table-data">Employed</p>
+                  <p className="userDetails-table-data">
+                    {" "}
+                    {userData?.education?.employmentStatus}
+                  </p>
                 </div>
                 <div>
                   <h4 className="userDetails-table-heading">
                     SECTOR OF EMPLOYMENT
                   </h4>
-                  <p className="userDetails-table-data">FinTech</p>
+                  <p className="userDetails-table-data">
+                    {" "}
+                    {userData?.education?.sector}
+                  </p>
                 </div>
                 <div>
                   <h4 className="userDetails-table-heading">
                     DURATION OF EMPLOYMENT
                   </h4>
-                  <p className="userDetails-table-data">2 years</p>
+                  <p className="userDetails-table-data">
+                    {" "}
+                    {userData?.education?.duration}
+                  </p>
                 </div>
                 <div>
                   <h4 className="userDetails-table-heading">OFFICE EMAIL</h4>
-                  <p className="userDetails-table-data">grace@lendsqr.com</p>
+                  <p className="userDetails-table-data">
+                    {" "}
+                    {userData?.education?.officeEmail}
+                  </p>
                 </div>
                 <div>
                   <h4 className="userDetails-table-heading">MONTHLY INCOME</h4>
                   <p className="userDetails-table-data">
-                    ₦200,000.00- ₦400,000.00
+                    ₦{userData?.education?.monthlyIncome[1]} - ₦
+                    {userData?.education?.monthlyIncome[0]}
                   </p>
                 </div>
                 <div>
                   <h4 className="userDetails-table-heading">LOAN REPAYMENT</h4>
-                  <p className="userDetails-table-data">40,000</p>
+                  <p className="userDetails-table-data">
+                    {" "}
+                    ₦{userData?.education?.loanRepayment}
+                  </p>
                 </div>
               </div>
             </div>
@@ -169,17 +220,23 @@ export default function UserDetails() {
               <div className="userDetails-table3">
                 <div>
                   <h4 className="userDetails-table-heading">TWITTER</h4>
-                  <p className="userDetails-table-data">@grace_effiom</p>
+                  <p className="userDetails-table-data">
+                    {userData?.socials?.twitter}
+                  </p>
                 </div>
 
                 <div>
                   <h4 className="userDetails-table-heading">FACEBOOK</h4>
-                  <p className="userDetails-table-data">Grace Effiom</p>
+                  <p className="userDetails-table-data">
+                    {userData?.socials?.facebook}
+                  </p>
                 </div>
 
                 <div>
                   <h4 className="userDetails-table-heading">INSTAGRAM</h4>
-                  <p className="userDetails-table-data">@grace_effiom</p>
+                  <p className="userDetails-table-data">
+                    {userData?.socials?.instagram}
+                  </p>
                 </div>
               </div>
             </div>
@@ -189,12 +246,19 @@ export default function UserDetails() {
               <div className="userDetails-table4">
                 <div>
                   <h4 className="userDetails-table-heading">FULLNAME</h4>
-                  <p className="userDetails-table-data">Debby Ogana</p>
+                  <p className="userDetails-table-data">
+                    {" "}
+                    {userData?.guarantor?.firstName}{" "}
+                    {userData?.guarantor?.lastName}
+                  </p>
                 </div>
 
                 <div>
                   <h4 className="userDetails-table-heading">PHONE NUMBER</h4>
-                  <p className="userDetails-table-data">07012345678</p>
+                  <p className="userDetails-table-data">
+                    {" "}
+                    {userData?.guarantor?.phoneNumber}
+                  </p>
                 </div>
 
                 <div>
